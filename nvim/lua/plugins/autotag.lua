@@ -12,6 +12,7 @@ return {
                 "fish",
                 "rust",
                 "svelte",
+                "typescript",
             })
             return vim.tbl_deep_extend("force", opts, {
                 autotag = {
