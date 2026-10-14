@@ -9,6 +9,12 @@ return {
         ensure_installed = {
             "stylua",
             "shfmt",
+            "goimports",
+            "gofumpt",
+            "gomodifytags",
+            "impl",
+            "golangci-lint",
+            "delve",
         },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}

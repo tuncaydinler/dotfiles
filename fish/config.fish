@@ -41,14 +41,22 @@ export PATH="$PATH:/home/tuncay/.dotnet/tools"
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export QT_QPA_PLATFORMTHEME=qt6ct
 set -g -x PATH $PATH /usr/share/rvm/bin
 set -gx JAVA_HOME /usr/lib/jvm/java-11-openjdk
+set -gx PATH (ruby -e 'print Gem.user_dir')/bin $PATH
 
 alias g=git
 alias nv=nvim
 alias fs=fastfetch
+alias logout="hyprctl dispatch exit"
+alias agy=/home/tuncay/.local/bin/agy
 # alias yay=paru
 # mise activate fish | source
 # rvm --default use ruby-3.4.2
 rvm default
 set fish_cursor_visual block
+
+# Added by Antigravity CLI installer
+set -gx PATH "/home/tuncay/.local/bin" $PATH
+direnv hook fish | source

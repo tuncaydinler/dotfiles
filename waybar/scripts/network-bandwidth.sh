@@ -1,0 +1,1 @@
+/home/tuncay/İndirilenler/niri-dots/.config/waybar/scripts/network-bandwidth.sh

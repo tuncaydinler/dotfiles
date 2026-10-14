@@ -1,7 +1,3 @@
--- return {
---     "nvim-treesitter/nvim-treesitter",
---     opts = { ensure_installed = { "svelte", "prisma" } },
--- }
 return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
@@ -28,6 +24,7 @@ return {
         folds = { enable = true },
         ensure_installed = {
             "svelte",
+            "nix",
             "typescript",
             "bash",
             "c",
@@ -53,6 +50,10 @@ return {
             "vimdoc",
             "xml",
             "yaml",
+            "go",
+            "gomod",
+            "gowork",
+            "gosum",
         },
     },
     ---@param opts lazyvim.TSConfig

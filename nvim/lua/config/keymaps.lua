@@ -48,10 +48,10 @@ keymap.set("n", "sj", "<C-w>j")
 keymap.set("n", "sl", "<C-w>l")
 
 -- Resize window
-keymap.set("n", "<leader><left>", "<C-w>>")
-keymap.set("n", "<leader><right>", "<C-w><")
-keymap.set("n", "<leader><up>", "<C-w>+")
-keymap.set("n", "<leader><down>", "<C-w>-")
+keymap.set("n", "<leader><right>", "<C-w>>")
+keymap.set("n", "<leader><left>", "<C-w><")
+keymap.set("n", "<leader><down>", "<C-w>+")
+keymap.set("n", "<leader><up>", "<C-w>-")
 
 keymap.set("n", "<C-j>", function()
     vim.diagnostic.jump({ count = 1, float = true })
@@ -76,3 +76,37 @@ end, {})
 -- keymap.set("n", "<leader><tab><tab>", "<cmd>bnext<cr>", {
 --     desc = "Next Buffer (override New Tab)",
 -- })
+
+local ok, Snacks = pcall(require, "snacks")
+if not ok or not Snacks.terminal then
+    return
+end
+
+local last_win = nil
+
+local function toggle_or_focus_snacks_terminal()
+    local term = Snacks.terminal
+    local win_id = term.win and term.win.win -- snacks içinden terminal penceresinin aktif window id'sini al (opsiyonel kontrol)
+
+    -- Eğer terminal açık ve aktifse:
+    if win_id and vim.api.nvim_win_is_valid(win_id) and vim.api.nvim_get_current_win() == win_id then
+        -- Daha önceki pencereyi hatırladıysak o pencereye dön
+        if last_win and vim.api.nvim_win_is_valid(last_win) then
+            vim.api.nvim_set_current_win(last_win)
+        end
+        -- Terminali kapat
+        term.toggle()
+    else
+        -- Terminal açık değil ya da farklı bir penceredeyiz
+        -- Şu anki pencereyi hatırla
+        last_win = vim.api.nvim_get_current_win()
+        -- Terminali aç
+        term.toggle(nil, {
+            win = {
+                position = "bottom", -- veya senin istediğin pozisyon
+            },
+        })
+    end
+end
+
+keymap.set({ "n", "t" }, "<A-Tab>", toggle_or_focus_snacks_terminal, { desc = "Toggle Snacks terminal + go back" })
